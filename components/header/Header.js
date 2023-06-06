@@ -4,7 +4,7 @@ import styles from "./header.module.css";
 export default function Nav() {
 
   return (
-      <nav className={styles.navContainer}>
+      <div className={styles.navContainer}>
         <div className={styles.leftContent}>
           <div className={styles.logo}>
           <h1 className={styles.h1}>WEB5</h1>
@@ -13,8 +13,6 @@ export default function Nav() {
           </div>
           <p className={styles.p}>Share all your socials using emojis and NFTs</p>
         </div>
-        <div>
-        </div>
-      </nav>
+      </div>
   );
 }

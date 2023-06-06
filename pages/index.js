@@ -1,8 +1,9 @@
 
+import ContentEmojis from "@/components/emojis/ContentEmojis";
 import Nav from "@/components/header/Header";
 import BodyWrapper from "@/components/main/BodyWrapper";
 import React, { useState, useEffect } from "react"
-
+import styles from '../public/page.module.css'
 const emojis = [
   {
     category: "smileys & peopple",
@@ -516,9 +517,14 @@ export default function Home() {
   };
 
   return (
-    <>
-    <Nav/>
-    <BodyWrapper selectedEmojis={selectedEmojis}/>
-    </>
+    <div className={styles.container}>
+      <Nav />
+      <BodyWrapper selectedEmojis={selectedEmojis} />
+        <ContentEmojis
+          emojis={emojis}
+          onEmojiClick={handleEmojiSelection}
+          selectedEmojis={selectedEmojis}
+        />
+    </div>
   );
 }

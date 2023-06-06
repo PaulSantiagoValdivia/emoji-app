@@ -1,0 +1,33 @@
+.categoryMenu {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 5px;
+  overflow-x: scroll;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.categoryMenu::-webkit-scrollbar {
+  display: none;
+}
+.categoryButton {
+  font-size: 16px;
+  padding: 8px 12px;
+  border: none;
+  background-color: transparent;
+  color: gray;
+  cursor: pointer;
+}
+
+.active {
+  color: gray;
+}
+
+.categoryButton:hover {
+  color: white;
+}
