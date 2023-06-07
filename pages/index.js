@@ -519,7 +519,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Nav />
-      <BodyWrapper selectedEmojis={selectedEmojis} />
+      <BodyWrapper selectedEmojis={selectedEmojis} setSelectedEmojis={setSelectedEmojis}/>
         <ContentEmojis
           emojis={emojis}
           onEmojiClick={handleEmojiSelection}

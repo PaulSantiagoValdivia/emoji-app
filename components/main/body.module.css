@@ -2,11 +2,61 @@
   margin-top: 64px;
   display: flex;
   justify-content: center;
+  height: 300px;
+  
+}
+.buttonRemove{
+  
+box-sizing: border-box;
 
+/* Auto layout */
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 6.93878px;
+gap: 6.94px;
+position: absolute;
+width: 34px;
+top: 130px;
+margin-left: 85px;
+/* dark */
+
+background: #030303;
+/* destructive/900 */
+cursor: pointer;
+border: 0.693878px solid #BC1C10;
+border-radius: 8.32653px;
+}
+.icon{
+color:   #BC1C10;
 }
 
+.divText{
+  display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+width: 417px;
+height: 28px;
+color: #adb5bd;
+/* text-xl/bold-italic-capitalize */
+
+font-family: 'Montserrat';
+font-style: italic;
+font-weight: 900;
+font-size: 20px;
+line-height: 28px;
+/* identical to box height, or 140% */
+
+text-transform: uppercase;
+margin-top: 100px;
+/* neutral/500 */
+}
 .textWrapper {
-  width: 310px;
+  width: 370px;
   height: 20px;
   font: 700 15px/20px "Montserrat";
   color: #adb5bd;

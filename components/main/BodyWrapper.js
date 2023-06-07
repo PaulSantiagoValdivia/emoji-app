@@ -1,7 +1,8 @@
 import React from "react";
+import { RiDeleteBinLine } from "react-icons/ri";
 import styles from "./body.module.css";
 
-const BodyWrapper = ({ selectedEmojis }) => {
+const BodyWrapper = ({ selectedEmojis, setSelectedEmojis }) => {
   const [showAddEmojisText, setShowAddEmojisText] = React.useState(false);
   const [showFindYouText, setShowFindYouText] = React.useState(false);
 
@@ -21,17 +22,29 @@ const BodyWrapper = ({ selectedEmojis }) => {
     }
   }, [selectedEmojis]);
 
+  const handleRemoveEmoji = (emoji) => {
+    setSelectedEmojis(selectedEmojis.filter((selectedEmoji) => selectedEmoji !== emoji));
+  };
+
   return (
     <div className={styles.selectedEmojiWrapper}>
       {selectedEmojis.length === 0 ? (
-        <div className={styles.textWrapper}>GM FREN, PRESS ANY EMOJI TO START</div>
+        <div className={styles.divText}>GM FREN, PRESS ANY EMOJI TO START</div>
       ) : (
         <div className={styles.main}>
           <div className={styles.selectedEmojiContainer}>
             {selectedEmojis.map((emoji) => (
-              <span key={emoji} className={styles.emoji}>
-                {emoji}
-              </span>
+              <div>
+                <span key={emoji} className={styles.emoji}>
+                  {emoji}
+                </span>
+                <button
+                  className={styles.buttonRemove}
+                  onClick={() => handleRemoveEmoji(emoji)}
+                >
+                  <RiDeleteBinLine className={styles.icon}/>
+                </button>
+              </div>
             ))}
           </div>
           {showAddEmojisText && (
