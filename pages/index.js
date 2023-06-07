@@ -4,6 +4,7 @@ import Nav from "@/components/header/Header";
 import BodyWrapper from "@/components/main/BodyWrapper";
 import React, { useState, useEffect } from "react"
 import styles from '../public/page.module.css'
+import Form from "@/components/form/Form";
 const emojis = [
   {
     category: "smileys & peopple",
@@ -496,7 +497,14 @@ const emojis = [
 export default function Home() {
   const [selectedEmojis, setSelectedEmojis] = useState([]);
   const [showContentEmojis, setShowContentEmojis] = useState(true);
-const [showButton ,setShowButton] = useState(true);
+  const [showButton, setShowButton] = useState(true);
+  const [showForm, setShowForm] = useState(false); // Nuevo estado para controlar la visibilidad del formulario
+  const [showDiscordButton, setShowDiscordButton] = useState(false); // Nuevo estado
+
+  // ...
+
+  console.log(selectedEmojis);
+
   function handleEmojiSelection(emoji) {
     if (selectedEmojis.length < 3) {
       const updatedEmojis = [...selectedEmojis, emoji];
@@ -513,28 +521,51 @@ const [showButton ,setShowButton] = useState(true);
   }, []);
 
   const handleCreateAccount = () => {
-    // Aquí puedes agregar la lógica para crear la cuenta con los emojis seleccionados
     setShowContentEmojis(false);
-    setShowButton(false); // Ocultar el botón al hacer clic en "MAKE THIS YOURS"
-    
-    // Resto de la lógica para crear la cuenta
+    setShowButton(false);
   };
 
-  const handleCreateAccountBack=()=>{
-    setShowContentEmojis(true)
-    setShowButton(true)
-  }
+  const handleCreateAccountBack = () => {
+    setShowContentEmojis(true);
+
+  };
+
+  const handleLoveIt = () => {
+    setShowForm(true);
+  };
+
+  const handleFormSubmit = () => {
+    // Aquí puedes agregar la lógica para enviar el formulario
+    setShowForm(false); // Ocultar el formulario después de enviarlo
+  };
 
   return (
     <div className={styles.container}>
       <Nav />
-      <BodyWrapper selectedEmojis={selectedEmojis} setSelectedEmojis={setSelectedEmojis} handleCreateAccount={handleCreateAccount} showButton={showButton} handleCreateAccountBack={handleCreateAccountBack}/>
+      {!showForm && ( // Ocultar BodyWrapper si showForm es true
+        <BodyWrapper
+          selectedEmojis={selectedEmojis}
+          setSelectedEmojis={setSelectedEmojis}
+          handleCreateAccount={handleCreateAccount}
+          showButton={showButton}
+          setShowButton={setShowButton}
+          handleCreateAccountBack={handleCreateAccountBack}
+          handleLoveIt={handleLoveIt}
+        />
+      )}
       {showContentEmojis && (
         <ContentEmojis
           emojis={emojis}
           onEmojiClick={handleEmojiSelection}
           selectedEmojis={selectedEmojis}
         />
+      )}   
+      {showForm && (
+        <Form handleGoBack={handleFormSubmit} selectedEmojis={selectedEmojis} />
+      )}
+      {/* ... */}
+      {showDiscordButton && (
+        <button >Iniciar sesión con Discord</button>
       )}
     </div>
   );

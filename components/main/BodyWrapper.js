@@ -1,22 +1,25 @@
 import React from "react";
-import { RiDeleteBinLine } from "react-icons/ri";
+import { RiDeleteBinLine, RiSearchLine } from "react-icons/ri";
 import styles from "./body.module.css";
 
 const BodyWrapper = ({
   selectedEmojis,
   setSelectedEmojis,
   handleCreateAccount,
+  setShowButton,
   showButton,
-  handleCreateAccountBack
+  handleCreateAccountBack,
+  handleLoveIt
 }) => {
   const [showAddEmojisText, setShowAddEmojisText] = React.useState(false);
   const [showFindYouText, setShowFindYouText] = React.useState(false);
-  const [showRemoveButton, setShowRemoveButton] = React.useState(true);
+  const [showRemoveButton, setShowRemoveButton] = React.useState(false);
 
   React.useEffect(() => {
     if (selectedEmojis.length === 1) {
       setShowAddEmojisText(true);
       setShowFindYouText(false);
+      setShowRemoveButton(true)
     } else if (selectedEmojis.length === 2) {
       setShowAddEmojisText(true);
       setShowFindYouText(false);
@@ -39,20 +42,23 @@ const BodyWrapper = ({
   };
 
   const handleMakeYours = () => {
-
     setShowRemoveButton(false);
     handleCreateAccount();
   };
 
   const handleGoBack = () => {
-    setShowRemoveButton(true);
+    setShowRemoveButton(true)
+    setShowButton(true);
     handleCreateAccountBack();
   };
 
   return (
     <div className={styles.selectedEmojiWrapper}>
       {selectedEmojis.length === 0 ? (
-        <div className={styles.divText}>GM FREN, PRESS ANY EMOJI TO START</div>
+        <div className={styles.textContent}>
+
+          <div className={styles.divText}><RiSearchLine className={styles.iconDiv} />GM FREN, PRESS ANY EMOJI TO START</div>
+        </div>
       ) : (
         <div className={styles.main}>
           <div className={styles.selectedEmojiContainer}>
@@ -105,8 +111,10 @@ const BodyWrapper = ({
           )}
           {!showButton && (
             <div className={styles.divButton}>
-              <button className={styles.buttonMain}>I LOVE IT !</button>
-              <button className={styles.back} onClick={handleGoBack}>Men go back</button>
+              <button className={styles.buttonMain} onClick={handleLoveIt}>
+                I LOVE IT !
+              </button>
+              <button className={styles.back} onClick={handleGoBack}>MeH go back</button>
             </div>
           )}
         </div>
