@@ -3,7 +3,8 @@ import EmojiMenu from "../menu-emojis/EmojisMenu";
 import SelectEmoji from "../select-emoji/SelectEmoji";
 import styles from './styles.module.css'
 
-const ContentEmojis = ({ emojis, onEmojiClick, selectedEmojis }) => {
+const ContentEmojis = ({ emojis, onEmojiClick, selectedEmojis, emojiSelectionComplete }) => {
+
   const [activeCategory, setActiveCategory] = useState(emojis[0].category);
 
   return (
@@ -12,6 +13,7 @@ const ContentEmojis = ({ emojis, onEmojiClick, selectedEmojis }) => {
         emojis={emojis}
         activeCategory={activeCategory}
         setActiveCategory={setActiveCategory}
+        selectedEmojis={selectedEmojis}
       />
       <SelectEmoji
         emojis={emojis}
@@ -22,5 +24,4 @@ const ContentEmojis = ({ emojis, onEmojiClick, selectedEmojis }) => {
     </div>
   );
 };
-
 export default ContentEmojis;

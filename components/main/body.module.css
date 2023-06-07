@@ -111,9 +111,56 @@ margin-top: 100px;
   font-weight: 900;
   font-size: 14px;
   line-height: 20px;
+  
+width: 319.21px;
+height: 74px;
   color: #030303;
 }
+.back{
+  box-sizing: border-box;
 
+/* Auto layout */
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px 40px;
+gap: 10px;
+
+width: 319.21px;
+height: 74px;
+
+
+/* dark */
+
+background: #030303;
+/* neutral/700 */
+
+border: 1px solid #495057;
+border-radius: 8px;
+font-family: 'Montserrat';
+font-style: italic;
+font-weight: 900;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height, or 143% */
+
+display: flex;
+align-items: center;
+text-transform: uppercase;
+
+/* neutral/500 */
+
+color: #ADB5BD;
+
+}
+.divButton{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  
+}
 .emoji {
   display: flex;
   flex-direction: column;

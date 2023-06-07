@@ -23,7 +23,11 @@
   color: gray;
   cursor: pointer;
 }
-
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  /* Otros estilos visuales para indicar que está deshabilitado */
+}
 .active {
   color: gray;
 }

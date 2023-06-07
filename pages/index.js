@@ -495,7 +495,8 @@ const emojis = [
 ]
 export default function Home() {
   const [selectedEmojis, setSelectedEmojis] = useState([]);
-
+  const [showContentEmojis, setShowContentEmojis] = useState(true);
+const [showButton ,setShowButton] = useState(true);
   function handleEmojiSelection(emoji) {
     if (selectedEmojis.length < 3) {
       const updatedEmojis = [...selectedEmojis, emoji];
@@ -511,20 +512,30 @@ export default function Home() {
     }
   }, []);
 
-
   const handleCreateAccount = () => {
-    // Lógica para crear cuenta con emojis seleccionados
+    // Aquí puedes agregar la lógica para crear la cuenta con los emojis seleccionados
+    setShowContentEmojis(false);
+    setShowButton(false); // Ocultar el botón al hacer clic en "MAKE THIS YOURS"
+    
+    // Resto de la lógica para crear la cuenta
   };
+
+  const handleCreateAccountBack=()=>{
+    setShowContentEmojis(true)
+    setShowButton(true)
+  }
 
   return (
     <div className={styles.container}>
       <Nav />
-      <BodyWrapper selectedEmojis={selectedEmojis} setSelectedEmojis={setSelectedEmojis}/>
+      <BodyWrapper selectedEmojis={selectedEmojis} setSelectedEmojis={setSelectedEmojis} handleCreateAccount={handleCreateAccount} showButton={showButton} handleCreateAccountBack={handleCreateAccountBack}/>
+      {showContentEmojis && (
         <ContentEmojis
           emojis={emojis}
           onEmojiClick={handleEmojiSelection}
           selectedEmojis={selectedEmojis}
         />
+      )}
     </div>
   );
 }

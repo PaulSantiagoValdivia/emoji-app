@@ -2,9 +2,16 @@ import React from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import styles from "./body.module.css";
 
-const BodyWrapper = ({ selectedEmojis, setSelectedEmojis }) => {
+const BodyWrapper = ({
+  selectedEmojis,
+  setSelectedEmojis,
+  handleCreateAccount,
+  showButton,
+  handleCreateAccountBack
+}) => {
   const [showAddEmojisText, setShowAddEmojisText] = React.useState(false);
   const [showFindYouText, setShowFindYouText] = React.useState(false);
+  const [showRemoveButton, setShowRemoveButton] = React.useState(true);
 
   React.useEffect(() => {
     if (selectedEmojis.length === 1) {
@@ -31,6 +38,17 @@ const BodyWrapper = ({ selectedEmojis, setSelectedEmojis }) => {
     }
   };
 
+  const handleMakeYours = () => {
+
+    setShowRemoveButton(false);
+    handleCreateAccount();
+  };
+
+  const handleGoBack = () => {
+    setShowRemoveButton(true);
+    handleCreateAccountBack();
+  };
+
   return (
     <div className={styles.selectedEmojiWrapper}>
       {selectedEmojis.length === 0 ? (
@@ -41,12 +59,14 @@ const BodyWrapper = ({ selectedEmojis, setSelectedEmojis }) => {
             {selectedEmojis.map((emoji, index) => (
               <span className={styles.emoji} key={index}>
                 {emoji}
-                <button
-                  className={styles.buttonRemove}
-                  onClick={() => handleRemoveEmoji(emoji)}
-                >
-                  <RiDeleteBinLine className={styles.icon} />
-                </button>
+                {showRemoveButton && (
+                  <button
+                    className={styles.buttonRemove}
+                    onClick={() => handleRemoveEmoji(emoji)}
+                  >
+                    <RiDeleteBinLine className={styles.icon} />
+                  </button>
+                )}
               </span>
             ))}
           </div>
@@ -69,18 +89,25 @@ const BodyWrapper = ({ selectedEmojis, setSelectedEmojis }) => {
                 </a>
                 {selectedEmojis.join("")}
               </div>
-              <p className={styles.textInfo}>
-                People will be able to find you through this link:
-              </p>
+              {showButton ? (
+                <p className={styles.textInfo}>
+                  People will be able to find you through this link:
+                </p>
+              ) : (
+                <p className={styles.textInfo}>wohoo! well hello there, this looks awesome!</p>
+              )}
             </>
           )}
-          {selectedEmojis.length === 3 && (
-            <button
-              className={styles.buttonMain}
-              onClick={() => console.log("Proceder con la creación de la cuenta")}
-            >
+          {selectedEmojis.length === 3 && showButton && (
+            <button className={styles.buttonMain} onClick={handleMakeYours}>
               MAKE THIS YOURS
             </button>
+          )}
+          {!showButton && (
+            <div className={styles.divButton}>
+              <button className={styles.buttonMain}>I LOVE IT !</button>
+              <button className={styles.back} onClick={handleGoBack}>Men go back</button>
+            </div>
           )}
         </div>
       )}

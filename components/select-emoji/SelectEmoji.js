@@ -1,15 +1,22 @@
 import styles from "./emoji.module.css";
 
-const SelectEmoji = ({ emojis, activeCategory, onEmojiClick }) => {
+const SelectEmoji = ({ emojis, activeCategory, onEmojiClick, selectedEmojis }) => {
   const category = emojis.find((category) => category.category === activeCategory);
+  const disabled = selectedEmojis.length >= 3;
+
+  const handleEmojiClick = (emoji) => {
+    if (!disabled) {
+      onEmojiClick(emoji);
+    }
+  };
 
   return (
     <div className={styles.emojiListContainer}>
       {category.icons.map((emoji) => (
         <div
           key={emoji}
-          onClick={() => onEmojiClick(emoji)}
-          className={styles.emojiButton}
+          onClick={() => handleEmojiClick(emoji)}
+          className={`${styles.emojiButton} ${disabled ? styles.disabled : ""}`}
         >
           {emoji}
         </div>
