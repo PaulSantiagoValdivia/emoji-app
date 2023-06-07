@@ -23,7 +23,12 @@ const BodyWrapper = ({ selectedEmojis, setSelectedEmojis }) => {
   }, [selectedEmojis]);
 
   const handleRemoveEmoji = (emoji) => {
-    setSelectedEmojis(selectedEmojis.filter((selectedEmoji) => selectedEmoji !== emoji));
+    const updatedEmojis = [...selectedEmojis];
+    const index = updatedEmojis.indexOf(emoji);
+    if (index > -1) {
+      updatedEmojis.splice(index, 1);
+      setSelectedEmojis(updatedEmojis);
+    }
   };
 
   return (
@@ -33,18 +38,16 @@ const BodyWrapper = ({ selectedEmojis, setSelectedEmojis }) => {
       ) : (
         <div className={styles.main}>
           <div className={styles.selectedEmojiContainer}>
-            {selectedEmojis.map((emoji) => (
-              <div>
-                <span key={emoji} className={styles.emoji}>
-                  {emoji}
-                </span>
+            {selectedEmojis.map((emoji, index) => (
+              <span className={styles.emoji} key={index}>
+                {emoji}
                 <button
                   className={styles.buttonRemove}
                   onClick={() => handleRemoveEmoji(emoji)}
                 >
-                  <RiDeleteBinLine className={styles.icon}/>
+                  <RiDeleteBinLine className={styles.icon} />
                 </button>
-              </div>
+              </span>
             ))}
           </div>
           {showAddEmojisText && (
