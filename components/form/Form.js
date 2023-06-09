@@ -31,23 +31,8 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
 
   const handleContinue = async () => {
     if (step === 1) {
-      if (nombre.trim() === '') {
-        setNombreError('Please enter your name');
-        return;
-      }
-      if (descripcion.trim() === '') {
-        setDescripcionError('Please enter a description');
-        return;
-      }
-      setNombreError('');
-      setDescripcionError('');
       setStep(2);
     } else if (step === 2) {
-      if (selectedImage === null) {
-        setImageError('Please select an image');
-        return;
-      }
-      setImageError('');
       setStep(3);
     } else if (step === 3) {
       // Save user data in the database
