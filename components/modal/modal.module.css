@@ -1,0 +1,120 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background-color:  #080809;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalContent h2 {
+  margin-top: 0;
+}
+
+.loginButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 10px;
+
+  width: 354px;
+  height: 60px;
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+  text-transform: uppercase;
+
+  /* neutral/100 */
+
+  color: #F8F9FA;
+
+  background: #074BF9;
+  border-radius: 8px;
+}
+
+.h2 {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 28px;
+  /* or 140% */
+
+  text-align: center;
+  text-transform: uppercase;
+
+  /* gradient-primary */
+
+  background: linear-gradient(102.81deg, #FFDD31 0%, #F3900D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.loginButton:hover {
+  cursor: pointer;
+}
+
+.closeButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 10px;
+
+  width: 354px;
+  height: 60px;
+  /* dark */
+  background: #030303;
+  /* neutral/700 */
+  border: 1px solid #495057;
+  border-radius: 8px;
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+
+  /* neutral/500 */
+
+  color: #ADB5BD;
+  margin-top: 20px;
+}
+
+.closeButton:hover {
+  color: #ddd;
+}
+
+.discordIcon {
+
+  color: #F8F9FA;
+  margin-right: 5px;
+}

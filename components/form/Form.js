@@ -1,88 +1,177 @@
-import styles from './form.module.css'
-import { useState } from "react";
-const Form = ({ handleGoBack, handleFormSubmit, selectedEmojis }) => {
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { supabase } from '@/lib/supabaseClient';
+import styles from './form.module.css';
+
+const Form = ({ handleGoBack, selectedEmojis, user }) => {
+  const router = useRouter();
+
   const [step, setStep] = useState(1);
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  const [imagen, setImagen] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [nombreError, setNombreError] = useState('');
+  const [descripcionError, setDescripcionError] = useState('');
+  const [imageError, setImageError] = useState('');
 
-  const handleContinue = () => {
+  useEffect(() => {
+    if (nombre.trim() !== '') {
+      setNombreError('');
+    }
+  }, [nombre]);
+
+  useEffect(() => {
+    if (descripcion.trim() !== '') {
+      setDescripcionError('');
+    }
+  }, [descripcion]);
+
+  useEffect(() => {
+    if (selectedImage !== null) {
+      setImageError('');
+    }
+  }, [selectedImage]);
+
+  const handleContinue = async () => {
     if (step === 1) {
+      if (nombre.trim() === '') {
+        setNombreError('Please enter your name');
+        return;
+      }
+      if (descripcion.trim() === '') {
+        setDescripcionError('Please enter a description');
+        return;
+      }
+      setNombreError('');
+      setDescripcionError('');
       setStep(2);
     } else if (step === 2) {
-      const formData = {
-        nombre,
-        descripcion,
-        imagen,
-      };
-      handleFormSubmit(formData);
+      if (selectedImage === null) {
+        setImageError('Please select an image');
+        return;
+      }
+      setImageError('');
+      setStep(3);
+    } else if (step === 3) {
+      // Save user data in the database
+      try {
+        const { data: file, error: uploadError } = await supabase.storage
+          .from('profile')
+          .upload(`${user.id}/${selectedImage.name}`, selectedImage);
+
+        if (uploadError) {
+          console.error('Error uploading image:', uploadError);
+          // Handle error, show error message, etc.
+        } else {
+          const imageUrl = file.publicURL;
+          console.log('Image uploaded successfully:', imageUrl);
+
+          // Save user data in the database
+          const { data, error } = await supabase.from('usuarios').insert([
+            {
+              id: user.id,
+              email: user.email,
+              emojis: selectedEmojis,
+              nombre,
+              descripcion,
+              imagen: imageUrl,
+            },
+          ]);
+
+          if (error) {
+            console.error('Error saving user data:', error);
+            // Handle error, show error message, etc.
+          } else {
+            console.log('User data saved successfully:', data);
+            // Redirect to the user's page with selected emojis in the URL
+            const emojis =selectedEmojis.join('');
+            router.push(`${emojis}`);
+          }
+        }
+      } catch (error) {
+        console.error('Error saving user data:', error);
+        // Handle error, show error message, etc.
+      }
     }
   };
 
   const handlePrevious = () => {
-    if (step === 2) {
-      setStep(1);
-    }
+    setStep(step - 1);
+  };
+
+  const imageSelect = (event) => {
+    setSelectedImage(event.target.files[0]);
   };
 
   return (
     <div className={styles.container}>
-          {selectedEmojis.length > 0 && (
-      <h1 className={styles.title}>
-        Ok,{selectedEmojis.join('')}LET'S GET TO KNOW EACH OTHER BETTER
-      </h1>
-        )}
       {step === 1 && (
         <div className={styles.formContent}>
-          <p className={styles.label}>
-            Whats your name, nickname, etc?
-            </p>
-            <input
-              type="text"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              placeholder="Satoshi Nakamoto"
-              className={styles.inputName}
-            />
-          <p className={styles.label}>
-          Mind adding a description?
-            </p>
-            <textarea
-              value={descripcion}
-              onChange={(e) => setDescripcion(e.target.value)}
-              placeholder="Descripción"
-              className={styles.inputDescription }
-            ></textarea>
+          {selectedEmojis.length > 0 && (
+            <h1 className={styles.title}>
+              Ok, {selectedEmojis.join('')}. LET'S GET TO KNOW EACH OTHER BETTER
+            </h1>
+          )}
+          <p className={styles.label}>What's your name, nickname, etc?</p>
+          <input
+            type="text"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            placeholder="Satoshi Nakamoto"
+            className={styles.inputName}
+          />
+          {nombreError && <p className={styles.errorMessageName}>{nombreError}</p>}
+          <p className={styles.label}>Mind adding a description?</p>
+          <textarea
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+            placeholder="Descripción"
+            className={styles.inputDescription}
+          ></textarea>
+          {descripcionError && <p className={styles.errorMessageDescrip}>{descripcionError}</p>}
           <button className={styles.buttonNext} onClick={handleContinue}>
-        {step === 1 ? 'SOUNDS LEGHT!' : 'THAT’S ME !'}
-      </button>    
-      <button className={styles.back} onClick={handleGoBack}>
-      MEH ,  GO BACK
-      </button>
+            {step === 1 ? 'SOUNDS LEGIT!' : 'THAT’S ME!'}
+          </button>
+          <button className={styles.back} onClick={handleGoBack}>
+            MEH, GO BACK
+          </button>
         </div>
       )}
       {step === 2 && (
         <>
-        <p className={styles.label}>Let’s add a profile picture</p>
-        <label className={styles.labelImage}  >
-
-          <input
-            type="file"
-            onChange={(e) => setImagen(e.target.value)}
-          
-            className={styles.inputImage}
+          {selectedEmojis.length > 0 && (
+            <h1 className={styles.title}>
+              Ok, {selectedEmojis.join('')}. LET'S GET TO KNOW EACH OTHER BETTER
+            </h1>
+          )}
+          <p className={styles.label}>Let’s add a profile picture</p>
+          <label className={styles.labelImage}>
+            <input
+              type="file"
+              onChange={imageSelect}
+              className={styles.inputImage}
             />
-            
-            </label>
+          </label>
+          {imageError && <p className={styles.errorMessageImg}>{imageError}</p>}
           <button className={styles.buttonNext} onClick={handleContinue}>
-          {step === 1 ? 'SOUNDS LEGHT!' : 'THAT’S ME !'}
-      </button>
-          <button className={styles.back} onClick={handlePrevious} disabled={step === 1}>
-          MEH ,  GO BACK
+            {step === 2 ? 'SOUNDS LEGIT!' : 'THAT’S ME!'}
           </button>
-      
+          <button
+            className={styles.back}
+            onClick={handlePrevious}
+            disabled={step === 1}
+          >
+            MEH, GO BACK
+          </button>
         </>
-      )}  
+      )}
+      {step === 3 && (
+        <>
+          <button className={styles.buttonDiscord} onClick={handleContinue}>
+            Create Account
+          </button>
+        </>
+      )}
     </div>
   );
 };

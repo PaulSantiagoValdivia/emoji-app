@@ -38,6 +38,7 @@
   
   
   /* neutral/100 */
+  margin-top: 24px;
   
   color: #F8F9FA;
 
@@ -56,7 +57,7 @@ gap: 10px;
 width: 353px;
 height: 48px;
 
-
+color: #F8F9FA;
 /* secondary/700 */
 
 background: #080809;
@@ -81,7 +82,8 @@ gap: 10px;
 width: 353px;
 height: 148px;
 /* secondary/700 */
-
+color: #F8F9FA;
+text-align: center;
 background: #080809;
 /* secondary/100 */
 
@@ -181,4 +183,48 @@ background: #030303;
 
 border: 1px solid #495057;
 border-radius: 8px;
+}/* form.module.css */
+
+.errorMessageName {
+  position: absolute;
+  margin-top: 196px;
+  font-size: 14px;
+  color:  #FFDD31;
+}
+.errorMessageDescrip {
+  position: relative;
+  margin-top: 5px;
+  font-size: 14px;
+  color:  #FFDD31;
+}
+.errorMessageImg {
+  position: relative; 
+  margin-top: -30px;
+  font-size: 14px;
+  color: #FFDD31;
+}
+
+.errorMessage:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 8px 10px 8px;
+  border-color: transparent transparent #ff0000 transparent;
+}
+
+.errorMessage:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: #ff0000;
+  border-radius: 50%;
 }

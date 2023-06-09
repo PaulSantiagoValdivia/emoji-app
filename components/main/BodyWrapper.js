@@ -1,7 +1,9 @@
 import React from "react";
 import { RiDeleteBinLine, RiSearchLine } from "react-icons/ri";
 import styles from "./body.module.css";
+import { supabase } from "@/lib/supabaseClient";
 
+import ModalBody from "../modal/ModalBody";
 const BodyWrapper = ({
   selectedEmojis,
   setSelectedEmojis,
@@ -9,12 +11,12 @@ const BodyWrapper = ({
   setShowButton,
   showButton,
   handleCreateAccountBack,
-  handleLoveIt
+  handleLoveIt,
 }) => {
   const [showAddEmojisText, setShowAddEmojisText] = React.useState(false);
   const [showFindYouText, setShowFindYouText] = React.useState(false);
   const [showRemoveButton, setShowRemoveButton] = React.useState(false);
-
+  const [showModal, setShowModal] = React.useState(false)
   React.useEffect(() => {
     if (selectedEmojis.length === 1) {
       setShowAddEmojisText(true);
@@ -41,9 +43,35 @@ const BodyWrapper = ({
     }
   };
 
-  const handleMakeYours = () => {
-    setShowRemoveButton(false);
-    handleCreateAccount();
+
+  const handleMakeYours = async () => {
+    // Convertir emojis seleccionados en una cadena JSON
+    const emojisString = JSON.stringify(selectedEmojis);
+
+    // Obtener todas las secuencias de emojis de la base de datos
+    const { data: usuariosData, error: usuariosError } = await supabase
+      .from('usuarios')
+      .select('emojis');
+
+    if (usuariosError) {
+      console.error('Error al obtener las secuencias de emojis:', usuariosError);
+      // Aquí puedes mostrar un mensaje de error al usuario o tomar alguna otra acción
+      return;
+    }
+
+    // Verificar si la secuencia de emojis seleccionada ya está en uso
+    const isEmojisTaken = usuariosData.some(usuario => JSON.stringify(usuario.emojis) === emojisString);
+
+    if (isEmojisTaken) {
+      console.log('La secuencia de emojis ya está en uso por otro usuario');
+      setShowModal(true);
+      // Aquí puedes mostrar un mensaje de error al usuario o tomar alguna otra acción
+    } else {
+      // La secuencia de emojis está disponible
+      handleCreateAccount();
+      setShowRemoveButton(false);
+
+    }
   };
 
   const handleGoBack = () => {
@@ -119,8 +147,10 @@ const BodyWrapper = ({
           )}
         </div>
       )}
+      {showModal && (
+        <ModalBody setShowModal={setShowModal} />
+      )}
     </div>
   );
 };
-
 export default BodyWrapper;
