@@ -10,11 +10,7 @@ const UserPage = () => {
   const { emojis } = router.query;
 const [user, setUser] = useState({}) 
 
-
-  useEffect(() => {
-    const compareEmojis = async () => {
-  
-  
+  const compareEmojis = async () => {
     try {
       const { data, error } = await supabase
         .from('usuarios')
@@ -59,8 +55,13 @@ const [user, setUser] = useState({})
     } catch (error) {
       console.error(error);
     }
-  }
-  }, [emojis]);
+  };
+
+  useEffect(() => {
+    if (emojis) {
+      compareEmojis();
+    }
+  }, [compareEmojis]);
 
   async function handleLogut() {
     const { error } = await supabase.auth.signOut()
