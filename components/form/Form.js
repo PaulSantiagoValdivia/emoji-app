@@ -10,9 +10,6 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
-  const [nombreError, setNombreError] = useState('');
-  const [descripcionError, setDescripcionError] = useState('');
-  const [imageError, setImageError] = useState('');
 
   useEffect(() => {
     if (nombre.trim() !== '') {
