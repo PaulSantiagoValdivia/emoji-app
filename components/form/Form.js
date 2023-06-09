@@ -10,6 +10,9 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [nombreError, setNombreError] = useState('');
+  const [descripcionError, setDescripcionError] = useState('');
+  const [imageError, setImageError] = useState('');
 
   useEffect(() => {
     if (nombre.trim() !== '') {
@@ -31,8 +34,23 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
 
   const handleContinue = async () => {
     if (step === 1) {
+      if (nombre.trim() === '') {
+        setNombreError('Please enter your name');
+        return;
+      }
+      if (descripcion.trim() === '') {
+        setDescripcionError('Please enter a description');
+        return;
+      }
+      setNombreError('');
+      setDescripcionError('');
       setStep(2);
     } else if (step === 2) {
+      if (selectedImage === null) {
+        setImageError('Please select an image');
+        return;
+      }
+      setImageError('');
       setStep(3);
     } else if (step === 3) {
       // Save user data in the database
@@ -102,14 +120,16 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
             placeholder="Satoshi Nakamoto"
             className={styles.inputName}
           />
-    <p className={styles.label}>Mind adding a description?</p>
+          {nombreError && <p className={styles.errorMessageName}>{nombreError}</p>}
+          <p className={styles.label}>Mind adding a description?</p>
           <textarea
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
             placeholder="Descripción"
             className={styles.inputDescription}
           ></textarea>
-      \    <button className={styles.buttonNext} onClick={handleContinue}>
+          {descripcionError && <p className={styles.errorMessageDescrip}>{descripcionError}</p>}
+          <button className={styles.buttonNext} onClick={handleContinue}>
             {step === 1 ? 'SOUNDS LEGIT!' : 'THAT’S ME!'}
           </button>
           <button className={styles.back} onClick={handleGoBack}>
@@ -132,6 +152,7 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
               className={styles.inputImage}
             />
           </label>
+          {imageError && <p className={styles.errorMessageImg}>{imageError}</p>}
           <button className={styles.buttonNext} onClick={handleContinue}>
             {step === 2 ? 'SOUNDS LEGIT!' : 'THAT’S ME!'}
           </button>

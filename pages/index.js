@@ -576,14 +576,6 @@ const Home = () => {
           selectedEmojis={selectedEmojis}
         />
       )}
-      {showForm && (
-        <Form
-          handleGoBack={() => setShowForm(false)}
-          selectedEmojis={selectedEmojis}
-          setShowForm={setShowForm}
-          user={user}
-        />
-      )}
       {showModal && (
         <Modal
           showModal={showModal}
