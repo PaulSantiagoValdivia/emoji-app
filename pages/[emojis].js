@@ -56,13 +56,12 @@ const [user, setUser] = useState({})
       console.error(error);
     }
   };
-
   useEffect(() => {
     if (emojis) {
       compareEmojis();
     }
-  }, [compareEmojis]);
-
+  }, [compareEmojis, emojis]);
+  
   async function handleLogut() {
     const { error } = await supabase.auth.signOut()
     router.push('http://localhost:3000/')
