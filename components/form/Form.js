@@ -120,16 +120,14 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
             placeholder="Satoshi Nakamoto"
             className={styles.inputName}
           />
-<p className={styles.errorMessageName}>&apos;{nombreError}&apos;</p>
-          <p className={styles.label}>Mind adding a description?</p>
+    <p className={styles.label}>Mind adding a description?</p>
           <textarea
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
             placeholder="Descripción"
             className={styles.inputDescription}
           ></textarea>
-          <p className={styles.errorMessageDescrip}>&apos;{descripcionError}&apos;</p>
-          <button className={styles.buttonNext} onClick={handleContinue}>
+      \    <button className={styles.buttonNext} onClick={handleContinue}>
             {step === 1 ? 'SOUNDS LEGIT!' : 'THAT’S ME!'}
           </button>
           <button className={styles.back} onClick={handleGoBack}>
@@ -152,7 +150,6 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
               className={styles.inputImage}
             />
           </label>
-          <p className={styles.errorMessageImg}>&apos;{imageError}&apos;</p>
           <button className={styles.buttonNext} onClick={handleContinue}>
             {step === 2 ? 'SOUNDS LEGIT!' : 'THAT’S ME!'}
           </button>
