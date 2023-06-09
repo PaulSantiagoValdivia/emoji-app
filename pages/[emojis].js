@@ -2,15 +2,19 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import Nav from '@/components/header/Header';
-
 import { FaDiscord } from "react-icons/fa";
 import styles from '../public/acount.module.css';
-import { httpAgentOptions } from '@/next.config';
+
 const UserPage = () => {
   const router = useRouter();
   const { emojis } = router.query;
 const [user, setUser] = useState({}) 
-  const compareEmojis = async () => {
+
+
+  useEffect(() => {
+    const compareEmojis = async () => {
+  
+  
     try {
       const { data, error } = await supabase
         .from('usuarios')
@@ -55,12 +59,7 @@ const [user, setUser] = useState({})
     } catch (error) {
       console.error(error);
     }
-  };
-
-  useEffect(() => {
-    if (emojis) {
-      compareEmojis();
-    }
+  }
   }, [emojis]);
 
   async function handleLogut() {
