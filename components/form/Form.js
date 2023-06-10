@@ -109,10 +109,10 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
         <div className={styles.formContent}>
           {selectedEmojis.length > 0 && (
             <h1 className={styles.title}>
-              Ok, {selectedEmojis.join('')}. LET'S GET TO KNOW EACH OTHER BETTER
+              Ok, {selectedEmojis.join('')}. LETS GET TO KNOW EACH OTHER BETTER
             </h1>
           )}
-          <p className={styles.label}>What's your name, nickname, etc?</p>
+          <p className={styles.label}>Whats your name, nickname, etc?</p>
           <input
             type="text"
             value={nombre}
@@ -141,7 +141,7 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
         <>
           {selectedEmojis.length > 0 && (
             <h1 className={styles.title}>
-              Ok, {selectedEmojis.join('')}. LET'S GET TO KNOW EACH OTHER BETTER
+              Ok, {selectedEmojis.join('')}. LETS GET TO KNOW EACH OTHER BETTER
             </h1>
           )}
           <p className={styles.label}>Let’s add a profile picture</p>
