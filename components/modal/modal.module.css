@@ -23,7 +23,7 @@
 }
 
 .modalContent h2 {
-  margin-top: 0;
+  margin-top: 30px;
 }
 
 .loginButton {
@@ -42,15 +42,14 @@
   font-size: 14px;
   line-height: 20px;
   /* identical to box height, or 143% */
-
   text-transform: uppercase;
-
   /* neutral/100 */
-
   color: #F8F9FA;
-
   background: #074BF9;
   border-radius: 8px;
+  border: none;
+  outline: none;
+  margin-top: 50px;
 }
 
 .h2 {
@@ -71,7 +70,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
-}
+  }
 
 .loginButton:hover {
   cursor: pointer;
@@ -104,9 +103,12 @@
   text-transform: uppercase;
 
   /* neutral/500 */
-
+  border: none;
+  outline: none;
+  cursor: pointer;
   color: #ADB5BD;
-  margin-top: 20px;
+  margin-top: 30px;
+
 }
 
 .closeButton:hover {

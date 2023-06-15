@@ -63,7 +63,6 @@
   text-transform: uppercase;
   /* neutral/500 */
   text-align: center;
-  margin-left: 14px;
 }
 
 .textWrapper {
@@ -97,7 +96,10 @@ margin-left: -22px;
   font-size: 20px;
   line-height: 28px;
   /* identical to box height, or 140% */
+  
+  
   /* gradient-primary */
+  
   background: linear-gradient(102.81deg, #FFDD31 0%, #F3900D 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

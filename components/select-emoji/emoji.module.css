@@ -3,18 +3,24 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  gap: 10px;
+  padding: 5px;
   width: 39px;
-  height: 39px;  
+  height: 39px; 
   /* secondary/100 */
   background: #121416;
   border-radius: 12px;
   white-space: nowrap;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  font-weight: 700;
+font-size: 22px;
+line-height: 160%;
   cursor: pointer;
 }
+.emojiButton:hover{
+  background: #212529;
+}
+
 .disabled {
   opacity: 0.5;
   pointer-events: none;
@@ -23,7 +29,7 @@
 
 
 .emojiListContainer {
-  height: 290px;
+  height: 226px;
   overflow-y:auto;
   display: flex;
   flex-direction: column;
@@ -32,7 +38,7 @@
   padding: 10px;
   gap: 10px;
   flex-wrap: wrap;
-  width: auto;
+  width: 1220px;
   display: flex;
   justify-content: center;
   align-items: center;

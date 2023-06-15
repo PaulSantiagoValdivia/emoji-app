@@ -10,7 +10,7 @@ import Modal from "@/components/modal/modal";
 import { useRouter } from "next/router";
 const emojis = [
   {
-    category: "smileys & peopple",
+    category: "Smileys & People",
     icons: [
       "😂",
       "😇",
@@ -96,10 +96,9 @@ const emojis = [
       "💤",
       "👅",
       "🥳",
-      "💊",
     ]
   }, {
-    category: "Animal & Nature",
+    category: "Animals & Nature",
     icons: [
       "🐶",
       "🐱",
@@ -191,7 +190,7 @@ const emojis = [
       "🌊"
     ],
   }, {
-    category: "food",
+    category: "Food & Activities",
     icons: [
       "🍎",
       "🍐",
@@ -260,11 +259,7 @@ const emojis = [
       "🍸",
       "🍾",
       "🥄",
-      "🍽️"
-    ]
-  }, {
-    category: "sports",
-    icons: [
+      "🍽️",
       "⚽",
       "🏀",
       "🏈",
@@ -309,9 +304,9 @@ const emojis = [
       "🎰",
       "🛹",
       "🎵"
-    ],
+    ]
   }, {
-    category: "travel",
+    category: "travel & objects",
     icons: [
       "🏁",
       "🚗",
@@ -351,11 +346,7 @@ const emojis = [
       "🏖️",
       "⛰️",
       "🏕️",
-      "🏠"
-    ]
-  }, {
-    category: "tecnologies",
-    icons: [
+      "🏠",
       "⌚",
       "📱",
       "💻",
@@ -376,11 +367,7 @@ const emojis = [
       "💡",
       "🔦",
       "🕯️",
-      "🛢️"
-    ],
-  }, {
-    category: "objects",
-    icons: [
+      "🛢️",
       "💵",
       "💰",
       "💳",
@@ -451,11 +438,7 @@ const emojis = [
       "🃏",
       "🀄",
       "🔛",
-      "🧩"
-    ],
-  }, {
-    category: "symbols",
-    icons: [
+      "🧩",
       "✝️",
       "☪️",
       "🕉️",
@@ -518,6 +501,9 @@ const Home = () => {
       setShowModal(true);
     }
   }
+
+  
+
   useEffect(() => {
     const storedEmojis = localStorage.getItem('selectedEmojis');
     if (storedEmojis) {
@@ -555,7 +541,7 @@ const Home = () => {
     setShowForm(true);
   };
   return (
-    <div className={styles.container}>
+    <div className={styles.container}  >
      <Nav />
       {!showForm && (
         <BodyWrapper

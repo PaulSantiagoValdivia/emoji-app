@@ -16,12 +16,21 @@
   display: none;
 }
 .categoryButton {
-  font-size: 16px;
-  padding: 8px 12px;
-  border: none;
-  background-color: transparent;
-  color: gray;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 160%;
+  /* or 22px */
+  
+  text-transform: uppercase;
+  
+  /* neutral/700 */
+  
+  color: #495057;
+  
   cursor: pointer;
+  margin-left: 20px;
 }
 .disabled {
   opacity: 0.5;

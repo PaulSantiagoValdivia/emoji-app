@@ -85,7 +85,7 @@ const BodyWrapper = ({
       {selectedEmojis.length === 0 ? (
         <div className={styles.textContent}>
 
-          <div className={styles.divText}><RiSearchLine className={styles.iconDiv} />GM FREN, PRESS ANY EMOJI TO START</div>
+          <div className={styles.divText}>GM FREN, PRESS ANY EMOJI TO START</div>
         </div>
       ) : (
         <div className={styles.main}>
