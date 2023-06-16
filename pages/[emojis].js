@@ -61,10 +61,15 @@ const [user, setUser] = useState({})
       compareEmojis();
     }
   }, [compareEmojis, emojis]);
-  
-  async function handleLogut() {
-    const { error } = await supabase.auth.signOut()
-    router.push('http://localhost:3000/')
+
+  async function handleLogout() {
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      localStorage.removeItem('selectedEmojis'); // Elimina el valor almacenado en el localStorage
+      router.push('http://localhost:3000/');
+    } else {
+      console.error(error);
+    }
   }
   return (
     <>
@@ -78,7 +83,7 @@ const [user, setUser] = useState({})
 
       <p className={styles.p}>Come back later for more information</p>
 
-      <button className={styles.logut} onClick={handleLogut}>
+      <button className={styles.logut} onClick={handleLogout}>
           <FaDiscord className={styles.discordIcon} />
           logut
         </button>

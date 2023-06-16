@@ -13,6 +13,7 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
   const [nombreError, setNombreError] = useState('');
   const [descripcionError, setDescripcionError] = useState('');
   const [imageError, setImageError] = useState('');
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
 
   useEffect(() => {
     if (nombre.trim() !== '') {
@@ -52,8 +53,6 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
       }
       setImageError('');
       setStep(3);
-    } else if (step === 3) {
-      // Save user data in the database
       try {
         const { data: file, error: uploadError } = await supabase.storage
           .from('profile')
@@ -93,14 +92,21 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
         // Handle error, show error message, etc.
       }
     }
+      
   };
-
   const handlePrevious = () => {
     setStep(step - 1);
   };
 
   const imageSelect = (event) => {
-    setSelectedImage(event.target.files[0]);
+    const selectedFile = event.target.files[0];
+    setSelectedImage(selectedFile);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreviewUrl(reader.result);
+    };
+    reader.readAsDataURL(selectedFile);
   };
 
   return (
@@ -151,8 +157,15 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
               onChange={imageSelect}
               className={styles.inputImage}
             />
-          </label>
           {imageError && <p className={styles.errorMessageImg}>{imageError}</p>}
+          {imagePreviewUrl && (
+            <img
+              src={imagePreviewUrl}
+              alt="Preview"
+              className={styles.imagePreview}
+            />
+          )}
+          </label>
           <button className={styles.buttonNext} onClick={handleContinue}>
             {step === 2 ? 'SOUNDS LEGIT!' : 'THAT’S ME!'}
           </button>
@@ -162,13 +175,6 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
             disabled={step === 1}
           >
             MEH, GO BACK
-          </button>
-        </>
-      )}
-      {step === 3 && (
-        <>
-          <button className={styles.buttonDiscord} onClick={handleContinue}>
-            Create Account
           </button>
         </>
       )}

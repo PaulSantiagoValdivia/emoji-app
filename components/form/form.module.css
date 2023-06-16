@@ -134,7 +134,7 @@ align-items: center;
 padding: 10px;
 gap: 10px;
 width: 353px;
-height: 162px;
+height: 362px;
 
 /* secondary/500 */
 
@@ -227,4 +227,9 @@ border-radius: 8px;
   height: 8px;
   background-color: #ff0000;
   border-radius: 50%;
+}
+.imagePreview {
+  width: 353px;
+  height: 350px;
+  
 }
