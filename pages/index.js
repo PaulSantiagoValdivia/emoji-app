@@ -571,6 +571,7 @@ const Home = () => {
           selectedEmojis={selectedEmojis}
           setShowForm={setShowForm}
           user={user}
+          setIsLoading={setIsLoading}
         />
       )}
       {showModal && (

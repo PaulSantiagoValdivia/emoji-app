@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabaseClient';
 import styles from './form.module.css';
 import ProfilePreview from '../profile-preview/ProfilePreview';
-const Form = ({ handleGoBack, selectedEmojis, user }) => {
+const Form = ({ handleGoBack, selectedEmojis, user,setIsLoading }) => {
   const router = useRouter();
 
   const [step, setStep] = useState(1);
@@ -14,6 +14,7 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
   const [descripcionError, setDescripcionError] = useState('');
   const [imageError, setImageError] = useState('');
   const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+  const [isImageSelected, setIsImageSelected] = useState(false); // Variable de estado adicional
 
   useEffect(() => {
     if (nombre.trim() !== '') {
@@ -30,6 +31,7 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
   useEffect(() => {
     if (selectedImage !== null) {
       setImageError('');
+      setIsImageSelected(true); // Actualizar el estado cuando se selecciona una imagen
     }
   }, [selectedImage]);
 
@@ -47,12 +49,6 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
       setDescripcionError('');
       setStep(2);
     } else if (step === 2) {
-      if (selectedImage === null) {
-        setImageError('Please select an image');
-        return;
-      }
-      setImageError('');
-      setStep(3);
       try {
         const { data: file, error: uploadError } = await supabase.storage
           .from('profile')
@@ -85,15 +81,22 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
             // Redirect to the user's page with selected emojis in the URL
             const emojis =selectedEmojis.join('');
             router.push(`${emojis}`);
+            setIsLoading(true)
           }
         }
       } catch (error) {
         console.error('Error saving user data:', error);
         // Handle error, show error message, etc.
       }
+      if (selectedImage === null) {
+        setImageError('Please select an image');
+        return;
+      }
+      setImageError('');
     }
       
   };
+
   const handlePrevious = () => {
     setStep(step - 1);
   };
@@ -167,11 +170,11 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
             className={styles.imagePreview}
             />
             )}
-            upload a picture
+           {isImageSelected ? null : 'upload a picture'} 
           </label>
             {imageError && <p className={styles.errorMessageImg}>{imageError}</p>}
           <button className={styles.buttonNext} onClick={handleContinue}>
-            {step === 2 ? 'SOUNDS LEGIT!' : 'THAT’S ME!'}
+            {step === 2 ? 'THAT’S ME!':'SOUNDS LEGIT!'  }
           </button>
           <button
             className={styles.back}
