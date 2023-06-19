@@ -66,7 +66,7 @@ const [user, setUser] = useState({})
     const { error } = await supabase.auth.signOut();
     if (!error) {
       localStorage.removeItem('selectedEmojis'); // Elimina el valor almacenado en el localStorage
-      router.push('http://localhost:3000/');
+      router.push('https://web5-iota.vercel.app/');
     } else {
       console.error(error);
     }
@@ -75,9 +75,9 @@ const [user, setUser] = useState({})
     <>
       <Nav/>
     <div className={styles.container}>
-      <h1 className={styles.h1}>hi {user.nombre} this is your web5 account</h1>
+      <h1 className={styles.h1}>hi {user.nombre} this are your web5 account</h1>
       <div>
-      <h1 className={styles.h1}>this is your emojis</h1>
+      <h1 className={styles.h1}>this are your emojis</h1>
       <h1 className={styles.emojis}>{emojis}</h1>
       </div>
 

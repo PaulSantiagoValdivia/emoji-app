@@ -13,12 +13,8 @@ text-transform: uppercase;
 
 /* gradient-primary */
 
-background: linear-gradient(102.81deg, #FFDD31 0%, #F3900D 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-text-fill-color: transparent;
-}
+
+color: #F8F9FA;}
 
 .p{
   font-family: 'Outfit';
@@ -59,6 +55,9 @@ color: #F8F9FA;
 
   background: #074BF9;
   border-radius: 8px;
+  outline: none;
+  border: none;
+  cursor: pointer;
 }
 .discordIcon {
 

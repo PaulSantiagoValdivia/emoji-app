@@ -7,7 +7,6 @@ import styles from '../public/page.module.css'
 import Form from "@/components/form/Form";
 import { supabase } from "@/lib/supabaseClient";
 import Modal from "@/components/modal/modal";
-import { useRouter } from "next/router";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 const emojis = [
   {
