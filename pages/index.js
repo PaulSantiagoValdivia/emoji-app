@@ -8,6 +8,7 @@ import Form from "@/components/form/Form";
 import { supabase } from "@/lib/supabaseClient";
 import Modal from "@/components/modal/modal";
 import { useRouter } from "next/router";
+import LoadingScreen from "@/components/loading/LoadingScreen";
 const emojis = [
   {
     category: "Smileys & People",
@@ -489,6 +490,7 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false); // Nuevo estado para el modal
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Nuevo estado para el estado de inicio de sesión
   const [user, setUser] = useState(null); // Nuevo estado para almacenar los datos del usuario
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleEmojiSelection(emoji) {
     if (isLoggedIn) {
@@ -543,6 +545,7 @@ const Home = () => {
   return (
     <div className={styles.container}  >
      <Nav />
+     {isLoading && <LoadingScreen />}
       {!showForm && (
         <BodyWrapper
           selectedEmojis={selectedEmojis}
@@ -552,8 +555,8 @@ const Home = () => {
           setShowButton={setShowButton}
           handleCreateAccountBack={handleCreateAccountBack}
           handleLoveIt={handleLoveIt}
-    
-        />
+          
+          />
       )}
       {showContentEmojis && (
         <ContentEmojis
@@ -575,6 +578,7 @@ const Home = () => {
           showModal={showModal}
           setShowModal={setShowModal}
           handleCreateAccount={handleCreateAccount}
+          setIsLoading={setIsLoading}
         />
       )}
     </div>

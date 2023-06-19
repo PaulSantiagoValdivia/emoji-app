@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabaseClient';
 import styles from './form.module.css';
-
+import ProfilePreview from '../profile-preview/ProfilePreview';
 const Form = ({ handleGoBack, selectedEmojis, user }) => {
   const router = useRouter();
 
@@ -111,6 +111,8 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
 
   return (
     <div className={styles.container}>
+
+    <div className={styles.containerForm}>
       {step === 1 && (
         <div className={styles.formContent}>
           {selectedEmojis.length > 0 && (
@@ -131,7 +133,7 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
           <textarea
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
-            placeholder="Descripción"
+            placeholder="Add a bio here."
             className={styles.inputDescription}
           ></textarea>
           {descripcionError && <p className={styles.errorMessageDescrip}>{descripcionError}</p>}
@@ -151,21 +153,23 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
             </h1>
           )}
           <p className={styles.label}>Let’s add a profile picture</p>
-          <label className={styles.labelImage}>
+          <label className={styles.labelImage}
+        >
             <input
               type="file"
               onChange={imageSelect}
               className={styles.inputImage}
-            />
-          {imageError && <p className={styles.errorMessageImg}>{imageError}</p>}
+              />
           {imagePreviewUrl && (
             <img
-              src={imagePreviewUrl}
-              alt="Preview"
-              className={styles.imagePreview}
+            src={imagePreviewUrl}
+            alt="Preview"
+            className={styles.imagePreview}
             />
-          )}
+            )}
+            upload a picture
           </label>
+            {imageError && <p className={styles.errorMessageImg}>{imageError}</p>}
           <button className={styles.buttonNext} onClick={handleContinue}>
             {step === 2 ? 'SOUNDS LEGIT!' : 'THAT’S ME!'}
           </button>
@@ -173,12 +177,18 @@ const Form = ({ handleGoBack, selectedEmojis, user }) => {
             className={styles.back}
             onClick={handlePrevious}
             disabled={step === 1}
-          >
+            >
             MEH, GO BACK
           </button>
         </>
       )}
     </div>
+
+    <div className={styles.previewContent}>
+        <ProfilePreview
+        />
+      </div>
+      </div>
   );
 };
 
