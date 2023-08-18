@@ -8,6 +8,7 @@ import Form from "@/components/form/Form";
 import { supabase } from "@/lib/supabaseClient";
 import Modal from "@/components/modal/modal";
 import LoadingScreen from "@/components/loading/LoadingScreen";
+import { useRouter } from "next/router";
 const emojis = [
   {
     category: "Smileys & People",
@@ -481,6 +482,7 @@ const emojis = [
   }
 ]
 const Home = () => {
+  const router = useRouter();
   const [selectedEmojis, setSelectedEmojis] = useState([]);
   const [showContentEmojis, setShowContentEmojis] = useState(true);
   const [showButton, setShowButton] = useState(true);
@@ -504,22 +506,45 @@ const Home = () => {
   }
 
   
-
   useEffect(() => {
     const storedEmojis = localStorage.getItem('selectedEmojis');
     if (storedEmojis) {
       setSelectedEmojis(JSON.parse(storedEmojis));
     }
-    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: subscription } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session) {
         setIsLoggedIn(true);
         setUser(session.user);
+  
+        // Verificar si el usuario existe en la base de datos
+        const userId = session.user.id;
+  
+        // Realizar la consulta a la base de datos
+        const { data: userData, error: userError } = await supabase
+          .from('usuarios')
+          .select('emojis')
+          .eq('id', userId);
+  
+        if (userError) {
+          console.error('Error al consultar la base de datos:', userError);
+          return;
+        }
+  
+        if (userData && userData.length > 0) {
+          // El usuario ya existe en la base de datos
+          console.log('El usuario ya existe en la base de datos');
+          const userEmojis = userData[0].emojis;
+          const emojisAsString = userEmojis.join('');
+          router.push(`${emojisAsString}}`)
+        } else {
+          // El usuario no existe en la base de datos
+          console.log('El usuario no existe en la base de datos');
+        }
       } else {
         setIsLoggedIn(false);
         setUser(null);
       }
     });
-    
   }, []);
   
   
@@ -586,3 +611,4 @@ const Home = () => {
 };
 
 export default Home;
+    

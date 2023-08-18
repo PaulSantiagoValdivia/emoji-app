@@ -1,6 +1,6 @@
 .navContainer {
   height: 78px;
-  border-bottom: 1px solid #19191d;
+    border-bottom: 1px solid #19191d;
   background-color: #030303;
   display: flex;
   flex-direction: row;

@@ -1,5 +1,5 @@
 .container {
-  width: 648px;
+  width: auto;
 
 }
 
@@ -163,7 +163,7 @@
   color: #ADB5BD;
   /* secondary/500 */
 
-  background: #0B0C0D;
+  background:#0E0E10;
   /* secondary/100 */
 
   border: 1px solid #121416;

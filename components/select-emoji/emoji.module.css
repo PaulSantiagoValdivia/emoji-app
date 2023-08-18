@@ -38,7 +38,7 @@ line-height: 160%;
   padding: 10px;
   gap: 10px;
   flex-wrap: wrap;
-  width: 1220px;
+  width: auto;
   display: flex;
   justify-content: center;
   align-items: center;

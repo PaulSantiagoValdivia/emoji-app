@@ -120,7 +120,7 @@ margin-left: -22px;
 
 .main {
   display: flex;
-  padding: 0px 40px;
+
   gap: 14px;
   flex-direction: column;
   align-items: center;

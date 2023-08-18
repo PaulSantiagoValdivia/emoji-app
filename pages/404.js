@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/dist/client/router';
 import styles from '../public/404.module.css';
 import Nav from '@/components/header/Header';
 
