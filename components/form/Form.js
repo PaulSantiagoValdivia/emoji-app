@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabaseClient';
 import styles from './form.module.css';
-import ProfilePreview from '../profile-preview/ProfilePreview';
 const Form = ({ handleGoBack, selectedEmojis, user,setIsLoading }) => {
   const router = useRouter();
 
@@ -114,7 +113,6 @@ const Form = ({ handleGoBack, selectedEmojis, user,setIsLoading }) => {
 
   return (
     <div className={styles.container}>
-
     <div className={styles.containerForm}>
       {step === 1 && (
         <div className={styles.formContent}>
@@ -186,11 +184,11 @@ const Form = ({ handleGoBack, selectedEmojis, user,setIsLoading }) => {
         </>
       )}
     </div>
-
     <div className={styles.previewContent}>
-        <ProfilePreview
-        />
+        
+        <img src='/profile.png' className={styles.profileImg}/>
       </div>
+
       </div>
   );
 };
