@@ -536,10 +536,7 @@ const Home = () => {
           const userEmojis = userData[0].emojis;
           const emojisAsString = userEmojis.join('');
           router.push(`/profile/${emojisAsString}`);
-        } else {
-          // El usuario no existe en la base de datos
-          console.log('El usuario no existe en la base de datos');
-        }
+        } 
       } else {
         setIsLoggedIn(false);
         setUser(null);
@@ -579,7 +576,6 @@ const Home = () => {
           setShowButton={setShowButton}
           handleCreateAccountBack={handleCreateAccountBack}
           handleLoveIt={handleLoveIt}
-          
           />
       )}
       {showContentEmojis && (

@@ -4,12 +4,15 @@ import { supabase } from '../../lib/supabaseClient';
 import Nav from '@/components/header/Header';
 import { FaDiscord } from "react-icons/fa";
 import styles from '../../public/acount.module.css';
+import LoadingScreen from '@/components/loading/LoadingScreen';
 
 const UserPage = () => {
   const router = useRouter();
   const { emojis } = router.query;
   const [user, setUser] = useState({})
   const [userImage, setUserImage] = useState(null)
+  const [isLoading, setIsLoading] = useState(true); // Agregar este estado
+
   const compareEmojis = async () => {
     try {
       const { data, error } = await supabase
@@ -54,6 +57,8 @@ const UserPage = () => {
             console.error(imageError);
           } else {
             setUserImage(URL.createObjectURL(imageData));
+            setIsLoading(false);
+            console.log(isLoading);
           }
         }
       } else {
@@ -83,31 +88,37 @@ const UserPage = () => {
   }
   return (
     <>
-      <Nav />
+      {isLoading ? (
+      <LoadingScreen />
+      ):(
+        <>
+         <Nav />
       <div className={styles.container}>
         <div className={styles.imgContainer}>
           {userImage && (
             <img
-              src={userImage}
+            src={userImage}
               alt="User Image"
               className={styles.img}
-            />
+              />
           )}
         </div>
         
         <div className={styles.infoContainer}>
-          <h1 className={styles.h1}>hi {user.nombre} this are your web5 account</h1>
           <div>
-            <h1 className={styles.h1}>this are your emojis</h1>
             <h1 className={styles.emojis}>{emojis}</h1>
           </div>
-          <p className={styles.p}>Come back later for more information</p>
-          <button className={styles.logut} onClick={handleLogout}>
-            <FaDiscord className={styles.discordIcon} />
-            logut
+          <h1 className={styles.h1}>{user.nombre}</h1>
+
+          <p className={styles.p}>gm! I am a buildoor and this is my site.</p>
+          <button className={styles.logout} onClick={handleLogout}>
+            <FaDiscord className={styles.discordIcon} />logout
           </button>
         </div>
       </div>
+    </>
+  )
+}
     </>
   );
 };

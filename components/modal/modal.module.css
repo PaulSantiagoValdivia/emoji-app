@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: scaleIn 2s ease;
+  animation: scaleIn 1s ease;
 }
 .overlay {
   position: fixed;
@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: scaleIn 2s ease;
+  animation: scaleIn 1s ease;
 }
 
 @keyframes scaleIn {
