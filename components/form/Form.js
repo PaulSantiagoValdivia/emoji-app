@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabaseClient';
 import styles from './form.module.css';
-const Form = ({ handleGoBack, selectedEmojis, user,setIsLoading }) => {
+const Form = ({ handleGoBack, selectedEmojis, user, setIsLoading }) => {
   const router = useRouter();
 
   const [step, setStep] = useState(1);
@@ -57,9 +57,6 @@ const Form = ({ handleGoBack, selectedEmojis, user,setIsLoading }) => {
           console.error('Error uploading image:', uploadError);
           // Handle error, show error message, etc.
         } else {
-          const imageUrl = file.publicURL;
-          console.log('Image uploaded successfully:', imageUrl);
-
           // Save user data in the database
           const { data, error } = await supabase.from('usuarios').insert([
             {
@@ -68,7 +65,7 @@ const Form = ({ handleGoBack, selectedEmojis, user,setIsLoading }) => {
               emojis: selectedEmojis,
               nombre,
               descripcion,
-              imagen: imageUrl,
+              imagen: selectedImage.name,
             },
           ]);
 
@@ -78,8 +75,8 @@ const Form = ({ handleGoBack, selectedEmojis, user,setIsLoading }) => {
           } else {
             console.log('User data saved successfully:', data);
             // Redirect to the user's page with selected emojis in the URL
-            const emojis =selectedEmojis.join('');
-            router.push(`${emojis}`);
+            const emojis = selectedEmojis.join('');
+            router.push(`/profile/${emojis}`);
             setIsLoading(true)
           }
         }
@@ -93,7 +90,7 @@ const Form = ({ handleGoBack, selectedEmojis, user,setIsLoading }) => {
       }
       setImageError('');
     }
-      
+
   };
 
   const handlePrevious = () => {
@@ -113,83 +110,82 @@ const Form = ({ handleGoBack, selectedEmojis, user,setIsLoading }) => {
 
   return (
     <div className={styles.container}>
-    <div className={styles.containerForm}>
-      {step === 1 && (
-        <div className={styles.formContent}>
-          {selectedEmojis.length > 0 && (
-            <h1 className={styles.title}>
-              Ok, {selectedEmojis.join('')}. LETS GET TO KNOW EACH OTHER BETTER
-            </h1>
-          )}
-          <p className={styles.label}>Whats your name, nickname, etc?</p>
-          <input
-            type="text"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            placeholder="Satoshi Nakamoto"
-            className={styles.inputName}
-          />
-          {nombreError && <p className={styles.errorMessageName}>{nombreError}</p>}
-          <p className={styles.label}>Mind adding a description?</p>
-          <textarea
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
-            placeholder="Add a bio here."
-            className={styles.inputDescription}
-          ></textarea>
-          {descripcionError && <p className={styles.errorMessageDescrip}>{descripcionError}</p>}
-          <button className={styles.buttonNext} onClick={handleContinue}>
-            {step === 1 ? 'SOUNDS LEGIT!' : 'THAT’S ME!'}
-          </button>
-          <button className={styles.back} onClick={handleGoBack}>
-            MEH, GO BACK
-          </button>
-        </div>
-      )}
-      {step === 2 && (
-        <>
-          {selectedEmojis.length > 0 && (
-            <h1 className={styles.title}>
-              Ok, {selectedEmojis.join('')}. LETS GET TO KNOW EACH OTHER BETTER
-            </h1>
-          )}
-          <p className={styles.label}>Let’s add a profile picture</p>
-          <label className={styles.labelImage}
-        >
-            <input
-              type="file"
-              onChange={imageSelect}
-              className={styles.inputImage}
-              />
-          {imagePreviewUrl && (
-            <img
-            src={imagePreviewUrl}
-            alt="Preview"
-            className={styles.imagePreview}
-            />
+      <div className={styles.containerForm}>
+        {step === 1 && (
+          <div className={styles.formContent}>
+            {selectedEmojis.length > 0 && (
+              <h1 className={styles.title}>
+                Ok, {selectedEmojis.join('')}. LETS GET TO KNOW EACH OTHER BETTER
+              </h1>
             )}
-           {isImageSelected ? null : 'upload a picture'} 
-          </label>
-            {imageError && <p className={styles.errorMessageImg}>{imageError}</p>}
-          <button className={styles.buttonNext} onClick={handleContinue}>
-            {step === 2 ? 'THAT’S ME!':'SOUNDS LEGIT!'  }
-          </button>
-          <button
-            className={styles.back}
-            onClick={handlePrevious}
-            disabled={step === 1}
+            <p className={styles.label}>Whats your name, nickname, etc?</p>
+            <input
+              type="text"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              placeholder="Satoshi Nakamoto"
+              className={styles.inputName}
+            />
+            {nombreError && <p className={styles.errorMessageName}>{nombreError}</p>}
+            <p className={styles.label}>Mind adding a description?</p>
+            <textarea
+              value={descripcion}
+              onChange={(e) => setDescripcion(e.target.value)}
+              placeholder="Add a bio here."
+              className={styles.inputDescription}
+            ></textarea>
+            {descripcionError && <p className={styles.errorMessageDescrip}>{descripcionError}</p>}
+            <button className={styles.buttonNext} onClick={handleContinue}>
+              {step === 1 ? 'SOUNDS LEGIT!' : 'THAT’S ME!'}
+            </button>
+            <button className={styles.back} onClick={handleGoBack}>
+              MEH, GO BACK
+            </button>
+          </div>
+        )}
+        {step === 2 && (
+          <>
+            {selectedEmojis.length > 0 && (
+              <h1 className={styles.title}>
+                Ok, {selectedEmojis.join('')}. LETS GET TO KNOW EACH OTHER BETTER
+              </h1>
+            )}
+            <p className={styles.label}>Let’s add a profile picture</p>
+            <label className={styles.labelImage}
             >
-            MEH, GO BACK
-          </button>
-        </>
-      )}
-    </div>
-    <div className={styles.previewContent}>
-        
-        <img src='/profile.png' className={styles.profileImg}/>
+              <input
+                type="file"
+                onChange={imageSelect}
+                className={styles.inputImage}
+              />
+              {imagePreviewUrl && (
+                <img
+                  src={imagePreviewUrl}
+                  alt="Preview"
+                  className={styles.imagePreview}
+                />
+              )}
+              {isImageSelected ? null : 'upload a picture'}
+            </label>
+            {imageError && <p className={styles.errorMessageImg}>{imageError}</p>}
+            <button className={styles.buttonNext} onClick={handleContinue}>
+              {step === 2 ? 'THAT’S ME!' : 'SOUNDS LEGIT!'}
+            </button>
+            <button
+              className={styles.back}
+              onClick={handlePrevious}
+              disabled={step === 1}
+            >
+              MEH, GO BACK
+            </button>
+          </>
+        )}
       </div>
+      <div className={styles.previewContent}>
 
+        <img src='/profile.png' className={styles.profileImg} />
       </div>
+    </div>
   );
 };
 

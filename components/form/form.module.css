@@ -1,6 +1,17 @@
 .container {
   width: auto;
+  animation: scaleIn 2s ease;
+}
 
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .containerForm {
@@ -133,6 +144,11 @@
   cursor: pointer;
 }
 
+.buttonNext:hover {
+  cursor: pointer;
+  background: linear-gradient(102.81deg, #b09923 0%, #ea8d14 100%);
+}
+
 .labelImage {
   /* Frame 11658 */
   margin-bottom: 50px;
@@ -156,14 +172,14 @@
   font-size: 16px;
   line-height: 160%;
   /* identical to box height, or 26px */
-  
-  
+
+
   /* neutral/500 */
-  
+
   color: #ADB5BD;
   /* secondary/500 */
 
-  background:#0E0E10;
+  background: #0E0E10;
   /* secondary/100 */
 
   border: 1px solid #121416;
@@ -214,6 +230,12 @@
 
   outline: none;
   cursor: pointer;
+}
+.back:hover {
+
+  color: #ddd;
+  background-color: #080707;
+
 }
 
 .errorMessageName {
@@ -268,36 +290,38 @@
   height: 100%;
 }
 
-.previewContent{
+.previewContent {
   display: none;
 }
 
 @media (min-width: 1240px) {
   .containerForm {
-    width:  100vh;
+    width: 100vh;
     height: 100vh;
     margin-left: 80px;
     border-right: 1px solid #292d32;
-    
+
   }
 
   .container {
-width: auto;
-display: flex;
-flex-direction: row;
+    width: auto;
+    display: flex;
+    flex-direction: row;
   }
 
 
   .previewContent {
-      display: flex;
-      width: 100vh;
-      height: 100vh;
-    
+    display: flex;
+    width: 100vh;
+    height: 100vh;
+
   }
-  .errorMessageName{
+
+  .errorMessageName {
     top: 120px;
   }
-  .errorMessageImg{
+
+  .errorMessageImg {
     margin-top: -45px;
   }
 }

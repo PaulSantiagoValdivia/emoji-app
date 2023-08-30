@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../../lib/supabaseClient';
 import Nav from '@/components/header/Header';
 import { FaDiscord } from "react-icons/fa";
-import styles from '../public/acount.module.css';
+import styles from '../../public/acount.module.css';
 
 const UserPage = () => {
   const router = useRouter();
   const { emojis } = router.query;
-const [user, setUser] = useState({}) 
-
+  const [user, setUser] = useState({})
+  const [userImage, setUserImage] = useState(null)
   const compareEmojis = async () => {
     try {
       const { data, error } = await supabase
@@ -43,24 +43,34 @@ const [user, setUser] = useState({})
           console.error(userError);
           return;
         }
-
-      setUser(userData)
-
-        console.log('User:', user);
-        // Aquí puedes hacer lo que necesites con los datos del usuario
+        setUser(userData)
+        const imageName = userData.imagen; // Replace 'imagen' with the correct field name
+        console.log(userData);
+        if (imageName) {
+          const { data: imageData, error: imageError } = await supabase.storage
+            .from('profile') // Replace with the correct storage folder name
+            .download(`${id}/${imageName}`);
+          if (imageError) {
+            console.error(imageError);
+          } else {
+            setUserImage(URL.createObjectURL(imageData));
+          }
+        }
       } else {
         console.log('No match found');
+        router.push('/')
         // Manejar la situación cuando no hay coincidencias
       }
     } catch (error) {
       console.error(error);
     }
   };
+
   useEffect(() => {
     if (emojis) {
       compareEmojis();
     }
-  }, [compareEmojis, emojis]);
+  }, [emojis]);
 
   async function handleLogout() {
     const { error } = await supabase.auth.signOut();
@@ -73,21 +83,31 @@ const [user, setUser] = useState({})
   }
   return (
     <>
-      <Nav/>
-    <div className={styles.container}>
-      <h1 className={styles.h1}>hi {user.nombre} this are your web5 account</h1>
-      <div>
-      <h1 className={styles.h1}>this are your emojis</h1>
-      <h1 className={styles.emojis}>{emojis}</h1>
+      <Nav />
+      <div className={styles.container}>
+        <div className={styles.imgContainer}>
+          {userImage && (
+            <img
+              src={userImage}
+              alt="User Image"
+              className={styles.img}
+            />
+          )}
+        </div>
+        
+        <div className={styles.infoContainer}>
+          <h1 className={styles.h1}>hi {user.nombre} this are your web5 account</h1>
+          <div>
+            <h1 className={styles.h1}>this are your emojis</h1>
+            <h1 className={styles.emojis}>{emojis}</h1>
+          </div>
+          <p className={styles.p}>Come back later for more information</p>
+          <button className={styles.logut} onClick={handleLogout}>
+            <FaDiscord className={styles.discordIcon} />
+            logut
+          </button>
+        </div>
       </div>
-
-      <p className={styles.p}>Come back later for more information</p>
-
-      <button className={styles.logut} onClick={handleLogout}>
-          <FaDiscord className={styles.discordIcon} />
-          logut
-        </button>
-    </div>
     </>
   );
 };

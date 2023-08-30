@@ -535,7 +535,7 @@ const Home = () => {
           console.log('El usuario ya existe en la base de datos');
           const userEmojis = userData[0].emojis;
           const emojisAsString = userEmojis.join('');
-          router.push(`${emojisAsString}}`)
+          router.push(`/profile/${emojisAsString}`);
         } else {
           // El usuario no existe en la base de datos
           console.log('El usuario no existe en la base de datos');
