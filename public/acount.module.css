@@ -71,7 +71,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   animation: scaleIn 2s ease;
 }
 

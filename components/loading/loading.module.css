@@ -14,10 +14,10 @@
 
 .loadingIcon {
   /* Estilos para el ícono de carga */
-  animation: spin 1s linear infinite;
-  color: yellow;
+  animation: spin 2s linear infinite;
+  color: rgba(255, 149, 0, 0.761);
   width: 200px;
-  height: 100px;
+  height: 100px;  
 }
 
 @keyframes spin {
