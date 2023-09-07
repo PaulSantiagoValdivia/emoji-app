@@ -199,13 +199,14 @@ outline: none;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  animation: scaleIn 2s ease;
+  animation: scaleIn 0.5s ease;
 }
 
 @keyframes scaleIn {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

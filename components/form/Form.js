@@ -182,7 +182,6 @@ const Form = ({ handleGoBack, selectedEmojis, user, setIsLoading }) => {
         )}
       </div>
       <div className={styles.previewContent}>
-
         <img src='/profile.png' className={styles.profileImg} />
       </div>
     </div>

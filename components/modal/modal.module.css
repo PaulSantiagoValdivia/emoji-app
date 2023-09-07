@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: scaleIn 1s ease;
+  animation: scaleIn 0.5s ease;
 }
 .overlay {
   position: fixed;
@@ -20,20 +20,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: scaleIn 1s ease;
 }
 
 @keyframes scaleIn {
   from {
-    transform: scale(0);
     opacity: 0;
   }
+
   to {
-    transform: scale(1);
     opacity: 1;
   }
 }
-
 .modalContent {
   background-color:  #080809;
   color: #fff;
