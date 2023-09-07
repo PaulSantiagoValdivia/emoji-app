@@ -5,6 +5,10 @@ import Nav from '@/components/header/Header';
 import { FaDiscord } from 'react-icons/fa';
 import styles from '../../public/acount.module.css';
 import LoadingScreen from '@/components/loading/LoadingScreen';
+import Magiceden from '../../components/svg/Magiceden';
+import Twitter from '../../components/svg/Twitter';
+import Snapchat from '../../components/svg/Snapchat';
+import TikTok from '../../components/svg/TikTok';
 
 const UserPage = () => {
   const router = useRouter();
@@ -12,42 +16,63 @@ const UserPage = () => {
   const [user, setUser] = useState({});
   const [userImage, setUserImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showUncomming, setShowUncomming] = useState(false);
+  const [buttonText, setButtonText] = useState({
+    twitter: 'Follow me for updates',
+    magiceden: 'Like my username? Buy it here',
+    snapchat: 'I send stuff here',
+    tiktok: 'Not your average tiktok account',
+  });
+  const handleClick = (buttonId) => {
+    setButtonText((prevButtonText) => ({
+      ...prevButtonText,
+      [buttonId]: 'soon',
+    }));
 
-// ...
+    setShowUncomming(true);
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`/api/emojis?emojis=${emojis}`);
-      const data = await response.json();
-      if (response.ok) {
-        setUser(data.user);
-
-        if (data.user.imagen) {
-          const { data: imageData, error: imageError } = await supabase.storage
-            .from('profile')
-            .download(`${data.user.id}/${data.user.imagen}`);
-          if (imageError) {
-            console.error(imageError);
-          } else {
-            setUserImage(URL.createObjectURL(imageData));
-          }
-        }
-      } else {
-        console.log('No match found');
-        router.push('/');
-      }
-
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
+    setTimeout(() => {
+      setButtonText((prevButtonText) => ({
+        ...prevButtonText,
+        [buttonId]: buttonText[buttonId], // Restaurar el texto original
+      }));
+      setShowUncomming(false);
+    }, 1000); // 1000 milisegundos = 1 segundo
   };
 
-  if (emojis) {
-    fetchData();
-  }
-}, [emojis]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/emojis?emojis=${emojis}`);
+        const data = await response.json();
+        if (response.ok) {
+          setUser(data.user);
+
+          if (data.user.imagen) {
+            const { data: imageData, error: imageError } = await supabase.storage
+              .from('profile')
+              .download(`${data.user.id}/${data.user.imagen}`);
+            if (imageError) {
+              console.error(imageError);
+            } else {
+              setUserImage(URL.createObjectURL(imageData));
+            }
+          }
+        } else {
+          console.log('No match found');
+          router.push('/');
+        }
+
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (emojis) {
+      fetchData();
+    }
+  }, [emojis]);
 
 
   async function handleLogout() {
@@ -87,6 +112,45 @@ useEffect(() => {
                 <FaDiscord className={styles.discordIcon} />
                 logout
               </button>
+              <div className={styles.buttonsContainer}>
+      <button
+        className={styles.buttonApp}
+        onClick={() => handleClick('twitter')}
+      >
+        <span>
+          <Twitter /> Twitter
+        </span>{' '}
+        {buttonText.twitter}
+      </button>
+      <button
+        className={styles.buttonApp}
+        onClick={() => handleClick('magiceden')}
+      >
+        <span>
+          <Magiceden /> Magiceden
+        </span>{' '}
+        {buttonText.magiceden}
+      </button>
+      <button
+        className={styles.buttonApp}
+        onClick={() => handleClick('snapchat')}
+      >
+        <span>
+          <Snapchat /> Snapchat
+        </span>{' '}
+        {buttonText.snapchat}
+      </button>
+      <button
+        className={styles.buttonApp}
+        onClick={() => handleClick('tiktok')}
+      >
+        <span>
+          <TikTok /> TikTok
+        </span>{' '}
+        {buttonText.tiktok}
+      </button>
+    </div>
+
             </div>
           </div>
         </>
