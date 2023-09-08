@@ -1,6 +1,7 @@
 .container {
   width: auto;
   animation: scaleIn 0.5s ease;
+  height: 80vh;
 }
 
 @keyframes scaleIn {
@@ -15,7 +16,7 @@
 
 .containerForm {
   width: auto;
-  height: 780px;
+  height: 80vh; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -295,24 +296,27 @@
 
 @media (min-width: 1240px) {
   .containerForm {
-    width: 100vh;
-    height: 100vh;
+    width:100vh;
+    height: 80h;
     margin-left: 80px;
-    border-right: 1px solid #292d32;
-
+    
   }
-
+  
   .container {
     width: auto;
+    height: 89.9vh;
     display: flex;
     flex-direction: row;
   }
-
-
+  
+  .formContent{
+    height: 80vh;
+  }
   .previewContent {
+    border-left: 1px solid #292d32;
     display: flex;
     width: 100vh;
-    height: 100vh;
+    height: 90vh;
 
   }
 

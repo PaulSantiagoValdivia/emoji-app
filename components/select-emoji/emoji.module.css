@@ -43,7 +43,7 @@ line-height: 160%;
 
 
 .emojiListContainer {
-  height: 226px;
+  height: 174px;
   overflow-y:auto;
   display: flex;
   flex-direction: column;
